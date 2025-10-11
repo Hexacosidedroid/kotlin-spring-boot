@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Database</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+
+        .student-count {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+
+        .tables-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .table-wrapper {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .table-wrapper:hover {
+            transform: translateY(-5px);
+        }
+
+        .table-header {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 15px 20px;
+        }
+
+        .table-header h2 {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            padding: 15px 12px;
+            text-align: left;
+            font-weight: 600;
+            color: #2c3e50;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .student-id {
+            font-weight: bold;
+            color: #3498db;
+        }
+
+        .birthday {
+            color: #7f8c8d;
+        }
+
+        .hobby-badge {
+            background-color: #e8f4fc;
+            padding: 5px 10px;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 0.9rem;
+            margin: 2px;
+            color: #2980b9;
+            border: 1px solid #3498db;
+        }
+
+        .no-hobbies {
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .tables-container {
+                flex-direction: column;
+            }
+
+            .table-wrapper {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Student Database</h1>
+        <p class="subtitle">Student information loaded from XML files</p>
+        <p class="student-count" th:text="'Total Students: ' + ${students.student.size}">Total Students: 0</p>
+    </header>
+
+    <div class="tables-container">
+        <!-- Students Table -->
+        <div class="table-wrapper">
+            <div class="table-header">
+                <h2>Students</h2>
+            </div>
+            <table>
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Birthday</th>
+                    <th>Hobbies</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="student, stat : ${students.student}">
+                    <td class="student-id" th:text="${stat.index + 1}">1</td>
+                    <td th:text="${student.name}">John</td>
+                    <td th:text="${student.surname}">Smith</td>
+                    <td class="birthday" th:text="${student.birthday}">2000-05-15</td>
+                    <td>
+                                <span th:if="${student.hobbies?.hobby != null and !student.hobbies.hobby.empty}"
+                                      th:each="hobby : ${student.hobbies.hobby}">
+                                    <span class="hobby-badge" th:text="${hobby}">Hobby</span>
+                                </span>
+                        <span th:if="${student.hobbies?.hobby == null or student.hobbies.hobby.empty}"
+                              class="no-hobbies">No hobbies</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer>
+        <p>Student Database System &copy; 2023 | Powered by Spring Boot</p>
+    </footer>
+</div>
+</body>
+</html>
