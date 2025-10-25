@@ -12,8 +12,6 @@ import ru.cib.kotlinspringboot.service.SaveToDatabase
 
 @Controller
 class StudentController(
-    private val loadFromXmlFile: LoadFromXmlFile,
-    private val saveToDatabase: SaveToDatabase,
     private val loadFromDatabase: LoadFromDatabase
 ) {
 
@@ -38,15 +36,5 @@ class StudentController(
         }
         students.student = listOfStudents
         return students
-    }
-
-    @GetMapping("/v1/loadStudents")
-    fun loadStudents(): String {
-        val students = loadFromXmlFile.loadFromXmlFile()
-        students.student.forEach { student ->
-            val id = saveToDatabase.saveStudent(student)
-            saveToDatabase.saveHobbies(student.hobbies, id!!)
-        }
-        return "ok"
     }
 }
