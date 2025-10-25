@@ -1,17 +1,25 @@
 package ru.cib.kotlinspringboot.dao
 
-import java.util.Date
+import jakarta.persistence.*
+import java.time.LocalDate
 
-data class Student(
-    var id: Int,
-    var name: String,
-    var surname: String,
-    var birthday: Date,
-    var hobbies: List<Hobbies>?
-)
+@Entity
+@Table(name = "students")
+class Student {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "student_id")
+    var studentId: Long = 0
 
-data class Hobbies(
-    var hobby_id: Int,
-    var student_id: Int,
-    var hobby: String
-)
+    @Column(name = "name", nullable = false, length = 50)
+    var name: String? = null
+
+    @Column(name = "surname", nullable = false, length = 50)
+    var surname: String? = null
+
+    @Column(name = "birthday", nullable = false)
+    var birthday: LocalDate? = null
+
+    @OneToMany(mappedBy = "student", cascade = [CascadeType.ALL], orphanRemoval = true)
+    var hobbies: List<Hobby> = emptyList()
+}

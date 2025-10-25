@@ -15,8 +15,7 @@ class LoadController(
     fun loadStudents(): String {
         val students = loadFromXmlFile.loadFromXmlFile()
         students.student.forEach { student ->
-            val id = saveToDatabase.saveStudent(student)
-            saveToDatabase.saveHobbies(student.hobbies, id!!)
+            saveToDatabase.saveStudent(student)
         }
         return "ok"
     }

@@ -28,8 +28,8 @@ class StudentController(
         val listOfStudents = mutableListOf<Student>()
         listOfStudentsFromDb.forEach {
             val hobbies = mutableListOf<String>()
-            it.hobbies?.forEach {
-                hobbies.add(it.hobby)
+            it.hobbies.forEach {
+                hobbies.add(it.hobby!!)
             }
             val webStudent = Student(it.name, it.surname, it.birthday.toString(), Hobbies(hobbies))
             listOfStudents.add(webStudent)

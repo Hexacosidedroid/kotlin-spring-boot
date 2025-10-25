@@ -19,8 +19,7 @@ class ScheduleService (
         val students = loadFromXmlFile.loadFromXmlFile()
         students.student.forEach { student ->
             logger.debug("Start saving students to database {}", student)
-            val id = saveToDatabase.saveStudent(student)
-            saveToDatabase.saveHobbies(student.hobbies, id!!)
+            saveToDatabase.saveStudent(student)
         }
     }
 }
