@@ -3,7 +3,6 @@ package ru.cib.kotlinspringboot.service
 import org.slf4j.LoggerFactory
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Service
-import ru.cib.kotlinspringboot.dto.Students
 
 @Service
 class ScheduleService (

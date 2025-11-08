@@ -2,11 +2,12 @@ package ru.cib.kotlinspringboot.util
 
 import ru.cib.kotlinspringboot.dao.Hobby
 import ru.cib.kotlinspringboot.dao.Student
-import ru.cib.kotlinspringboot.dto.Hobbies
+import ru.cib.kotlinspringboot.xml.Hobbies
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import kotlin.collections.forEach
 
-fun ru.cib.kotlinspringboot.dto.Student.toDao(): Student {
+fun ru.cib.kotlinspringboot.xml.Student.toDao(): Student {
     val self = this
     val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
     val date = LocalDate.parse(self.birthday, formatter)
@@ -31,4 +32,15 @@ fun Hobbies.toDao(studentDB: Student): List<Hobby> {
         listOfHobby.add(hobbyDB)
     }
     return listOfHobby
+}
+
+fun Student.toDto(): ru.cib.kotlinspringboot.dto.Student {
+    val self = this
+    return ru.cib.kotlinspringboot.dto.Student().apply {
+        this.studentId = self.studentId
+        this.name = self.name
+        this.birthday = self.birthday
+        this.surname = self.surname
+        this.hobbies = self.hobbies.map { hobbyDao -> hobbyDao.hobby }
+    }
 }

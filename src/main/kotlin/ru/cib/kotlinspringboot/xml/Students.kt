@@ -1,4 +1,4 @@
-package ru.cib.kotlinspringboot.dto
+package ru.cib.kotlinspringboot.xml
 
 import jakarta.xml.bind.annotation.XmlElement
 import jakarta.xml.bind.annotation.XmlRootElement

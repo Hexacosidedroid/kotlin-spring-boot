@@ -3,12 +3,10 @@ package ru.cib.kotlinspringboot.controller
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
-import ru.cib.kotlinspringboot.dto.Hobbies
-import ru.cib.kotlinspringboot.dto.Student
-import ru.cib.kotlinspringboot.dto.Students
+import ru.cib.kotlinspringboot.xml.Hobbies
+import ru.cib.kotlinspringboot.xml.Student
+import ru.cib.kotlinspringboot.xml.Students
 import ru.cib.kotlinspringboot.service.LoadFromDatabase
-import ru.cib.kotlinspringboot.service.LoadFromXmlFile
-import ru.cib.kotlinspringboot.service.SaveToDatabase
 
 @Controller
 class StudentController(
